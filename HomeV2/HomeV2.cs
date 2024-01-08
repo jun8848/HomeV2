@@ -12,9 +12,7 @@ namespace HomeV2
         {
             Harmony harmony = new Harmony(base.GetType().ToString());
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-            Log.Out("Mod load");
-            GameManager.Instance.gameObject.AddComponent<HomeUi>();
-            HomeManager.InitHome();
+            
         }
     }
 }

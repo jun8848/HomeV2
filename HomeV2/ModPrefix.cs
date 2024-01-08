@@ -11,7 +11,7 @@ namespace HomeV2
         public static void Prefix()
         {
             HomeUi.isShow = true;
-            Log.Out("打开地图");
+            
         }
     }
 
@@ -21,7 +21,6 @@ namespace HomeV2
         public static void Prefix()
         {
             HomeUi.isShow = false;
-            Log.Out("关闭地图");
         }
     }
     #endregion
@@ -93,6 +92,19 @@ namespace HomeV2
                 EntityPlayerLocal entityPlayerLocal = GameManager.Instance.World.GetEntity(__instance.entityId) as EntityPlayerLocal;
                 HomeManager.backPos = entityPlayerLocal.GetPosition();
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerDataFile), "Load")]
+    public class Postfix_PlayerDataFile_Load
+    {
+        public static void Prefix(string _dir)
+        {
+            HomeManager.savePath = _dir.Replace("Player","");
+            Log.Out("开始初始化Home列表");
+            GameManager.Instance.gameObject.AddComponent<HomeUi>();
+            HomeManager.InitHome();
+            Log.Out("初始化Home列表完成");
         }
     }
 }
