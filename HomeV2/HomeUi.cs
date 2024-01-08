@@ -15,8 +15,7 @@ namespace HomeV2
         public static bool isShow = false;
         private Rect rect = new Rect(Screen.width - 800, 0, 500, 800);
         private Vector2 vector2 ;
-        // 重名 懒得改
-        private static string name = "";
+        private static string homeName = "";
         void Update()
         {
             
@@ -38,17 +37,17 @@ namespace HomeV2
             GUILayout.BeginHorizontal();
            
             GUILayout.Label("输入家的名字:(可空)");
-            name = GUILayout.TextField(name);
+            homeName = GUILayout.TextField(homeName);
 
             if (GUILayout.Button("设置家"))
             {
                 Home home = new Home();
-                if (name=="")
+                if (homeName=="")
                     home.Name = $"Home{HomeManager.Homes.Count}";
                 else
-                    home.Name = name;
+                    home.Name = homeName;
                 home.Position = HomeManager.player.GetPosition();
-                name = "";
+                homeName = "";
                 HomeManager.AddHome(home);
             }
             GUILayout.EndHorizontal();
